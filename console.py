@@ -2,6 +2,9 @@
 """Console module"""
 
 import cmd
+from models.base_model import BaseModel
+from models import storage
+
 
 class HBNBCommand(cmd.Cmd):
     """Command interpreter class"""
@@ -20,6 +23,7 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """Do nothing on empty line"""
         pass
+
     def do_create(self, arg):
         """Create a new instance of BaseModel, save it, and print the id"""
         if not arg:
@@ -31,7 +35,7 @@ class HBNBCommand(cmd.Cmd):
             new_instance.save()
             print(new_instance.id)
 
-         def do_show(self, arg):
+    def do_show(self, arg):
         """Print the string representation of an instance"""
         args = arg.split()
         if not args:
@@ -47,7 +51,7 @@ class HBNBCommand(cmd.Cmd):
             else:
                 print(storage.all()[obj_key])
 
-        def do_destroy(self, arg):
+    def do_destroy(self, arg):
         """Delete an instance based on the class name and id"""
         args = arg.split()
         if not args:
@@ -101,6 +105,7 @@ class HBNBCommand(cmd.Cmd):
                 obj = storage.all()[obj_key]
                 setattr(obj, args[2], args[3][1:-1] if '"' in args[3] else args[3])
                 obj.save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
