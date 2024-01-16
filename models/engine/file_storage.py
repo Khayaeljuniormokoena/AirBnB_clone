@@ -2,13 +2,15 @@
 """FileStorage module"""
 
 import json
+from models.user import User
+from models.base_model import BaseModel
 
 
 class FileStorage:
     """Serializes instances to a JSON file and deserializes JSON file to instances"""
 
     __file_path = "file.json"
-    __objects = {}
+    __objects = {"BaseModel": BaseModel, "User": User}
 
     def all(self):
         """Returns the dictionary __objects"""

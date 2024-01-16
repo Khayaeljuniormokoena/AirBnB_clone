@@ -3,6 +3,7 @@
 
 import cmd
 from models.base_model import BaseModel
+from models.user import User
 from models import storage
 
 
@@ -21,17 +22,18 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def emptyline(self):
-        """Do nothing on empty line"""
+        """Do nothing on an empty line"""
         pass
 
     def do_create(self, arg):
         """Create a new instance of BaseModel, save it, and print the id"""
-        if not arg:
+        args = arg.split()
+        if not args:
             print("** class name missing **")
-        elif arg not in storage.classes:
+        elif args[0] not in storage.classes:
             print("** class doesn't exist **")
         else:
-            new_instance = storage.classes[arg]()
+            new_instance = storage.classes[args[0]]()
             new_instance.save()
             print(new_instance.id)
 
